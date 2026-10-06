@@ -12,10 +12,13 @@ It supports Drupal 10.3+ and 11, with Drush 12.5+ and 13.
 ## Install
 
 ```bash
-composer require southwark/drush-sanitize-test-db
+composer require --dev southwark/drush-sanitize-test-db
 ```
 
-Install it in **`require`**, not `require-dev`. On production the environment check is what *blocks* `sql:sanitize`: Drush core's and contrib sanitisers are already installed there, and only a y/N prompt stands in front of them.
+**Choose how production is protected.** Drush core's and contrib sanitisers (e.g. Webform's) are installed on production with only a y/N prompt in front of them. This package's environment check blocks them, but only where the package is installed. Pick one:
+
+- **`require-dev` plus a site policy file (recommended).** No sanitising code reaches production when it builds with `composer install --no-dev`. Commit a small Drush policy commandfile to the site, e.g. `drush/Commands/PolicyCommands.php`, with an `ARGUMENT_VALIDATOR` hook on `sql:sanitize` that applies the same checks and reads the same `sanitize_test_db` settings. It's deployed everywhere, so it protects production.
+- **`require`.** The package's own check is installed on production and blocks `sql:sanitize` there. Its sanitising steps can't run there, because the check refuses first.
 
 Drush discovers the commandfile automatically (PSR-4 `SanitizeTestDb\Drush\Commands\*DrushCommands`). No module needs enabling. Confirm that Drush has found it:
 
