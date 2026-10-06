@@ -1,0 +1,36 @@
+{
+    "name": "southwark/drush-sanitize-test-db",
+    "description": "Extends drush sql:sanitize to produce local test databases: anonymises users, config emails, secrets, content fields and temp data, with a fail-closed local-environment guard and a dry run.",
+    "type": "library",
+    "license": "GPL-2.0-or-later",
+    "keywords": [
+        "drupal",
+        "drush",
+        "sanitize",
+        "gdpr",
+        "testing"
+    ],
+    "require": {
+        "php": ">=8.1",
+        "drush/drush": "^12.5 || ^13"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6 || ^10 || ^11"
+    },
+    "autoload": {
+        "psr-4": {
+            "SanitizeTestDb\\": "src/"
+        },
+        "files": [
+            "src/compat.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SanitizeTestDb\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

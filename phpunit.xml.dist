@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Unit tests for the pure classes (no Drupal needed).
+     Standalone: composer install && vendor/bin/phpunit
+     From a Drupal project that requires this package:
+       vendor/bin/phpunit -c vendor/southwark/drush-sanitize-test-db/phpunit.xml.dist -->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         bootstrap="tests/bootstrap.php"
+         colors="true">
+  <testsuites>
+    <testsuite name="unit">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>

@@ -1,0 +1,28 @@
+# Example site configuration for southwark/drush-sanitize-test-db.
+# Copy into the site's drush/drush.yml and adjust.
+command:
+  sql:
+    sanitize:
+      options:
+        sanitize-email: 'user+%uid@example.com'   # only %uid: no original data in the result
+        sanitize-password: admin
+        # sanitize-admin-name: admin
+        # sanitize-admin-email: admin@example.com
+sanitize_test_db:
+  prod_markers: [settings.prod.php]
+  deny_uri_hosts: [www.example.gov.uk, '*.example.gov.uk']
+  local_url_suffixes: []        # added to the defaults
+  extra_tables: []              # globs, added to the defaults
+  tables_exclude: []            # globs, added to [SimpleSAMLphp_tableVersion]
+  config_email_exclude: []      # "config.name" or "config.name:key.path" globs
+  keep_emails: []               # public addresses to leave alone
+  secret_keys: []               # added to the defaults (client_secret, password, api_key, token, …)
+  secret_exclude: []            # "config.name:key.path" globs
+  reviewed_tables: []           # globs: reviewed, no personal data (coverage report)
+  email_domain: example.com     # default: the domain of --sanitize-admin-email
+  field_rules:
+    node.field_case_officer_email: email   # → user+<entity id>@<email_domain>
+    node.field_venue_phone: phone          # → 020 7946 0000 (Ofcom drama number)
+    node.field_applicant_name: text        # → "Sanitised text"
+    paragraph.field_private_notes: blank   # values deleted
+    node.field_public_email: keep          # reviewed, leave as is
