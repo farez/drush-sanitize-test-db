@@ -17,7 +17,7 @@ composer require --dev southwark/drush-sanitize-test-db
 
 **Choose how production is protected.** Drush core's and contrib sanitisers (e.g. Webform's) are installed on production with only a y/N prompt in front of them. This package's environment check blocks them, but only where the package is installed. Pick one:
 
-- **`require-dev` plus a site policy file (recommended).** No sanitising code reaches production when it builds with `composer install --no-dev`. Commit a small Drush policy commandfile to the site, e.g. `drush/Commands/PolicyCommands.php`, with an `ARGUMENT_VALIDATOR` hook on `sql:sanitize` that applies the same checks and reads the same `sanitize_test_db` settings. It's deployed everywhere, so it protects production.
+- **`require-dev` plus a site policy file (recommended).** No sanitising code reaches production when it builds with `composer install --no-dev`. Copy [examples/PolicyCommands.php](examples/PolicyCommands.php) to the site's `drush/Commands/PolicyCommands.php` and commit it. It's an `ARGUMENT_VALIDATOR` hook on `sql:sanitize` that applies the same checks and reads the same `sanitize_test_db` settings, and it's deployed everywhere, so it protects production. To check it's loaded, run `drush sql:sanitize --uri=https://example.com`: it must fail with "Policy: sql:sanitize refused".
 - **`require`.** The package's own check is installed on production and blocks `sql:sanitize` there. Its sanitising steps can't run there, because the check refuses first.
 
 Drush discovers the commandfile automatically (PSR-4 `SanitizeTestDb\Drush\Commands\*DrushCommands`). No module needs enabling. Confirm that Drush has found it:
