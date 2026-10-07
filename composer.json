@@ -2,7 +2,6 @@
     "name": "southwark/drush-sanitize-test-db",
     "description": "Extends drush sql:sanitize to produce local test databases: anonymises users, config emails, secrets, content fields and temp data, with a fail-closed local-environment guard and a dry run.",
     "type": "library",
-    "license": "GPL-2.0-or-later",
     "keywords": [
         "drupal",
         "drush",
