@@ -32,6 +32,15 @@ Install as a dev dependency in composer (`require-dev`) and add a Drush policy f
 
 No sanitising code reaches production when it builds with `composer install --no-dev`. Copy [examples/PolicyCommands.php](examples/PolicyCommands.php) to the site's `drush/Commands/PolicyCommands.php` and commit it. It applies the same checks everywhere, so it protects production.
 
+## Backup first!
+
+Goes without saying, you should make a backup of your database before sanitising it. 
+
+```bash
+drush cr # we don't need to backup the caches
+drush sql-dump --gzip --result-file=/path/to/db-file.sql
+```
+
 ## Use
 
 ```bash
